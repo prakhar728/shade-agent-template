@@ -31,7 +31,7 @@ npm i -g @neardefi/shade-agent-cli
 - Create a `NEAR testnet account` and record the account name and `seed phrase`:
 
 ```bash
-near account create-account sponsor-by-faucet-service <example-name.testnet> autogenerate-new-keypair print-to-terminal network-config testnet create
+near account create-account sponsor-by-faucet-service price-oracle-bot.testnet autogenerate-new-keypair print-to-terminal network-config testnet create
 ```
 
 replacing <example-name.testnet> with a unique name.

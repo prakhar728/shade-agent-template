@@ -1,5 +1,5 @@
 {
-  "name": "my-shade-agent-app",
+  "name": "price-oracle-shade-agent",
   "version": "1.0.0",
   "private": true,
   "type": "commonjs",
@@ -15,14 +15,30 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.15.0",
+    "@near-js/accounts": "^2.4.0",
+    "@near-js/crypto": "^2.4.0",
+    "@near-js/providers": "^2.4.0",
+    "@near-js/signers": "^2.4.0",
+    "@near-js/tokens": "^2.4.0",
     "@neardefi/shade-agent-js": "^1.0.0",
+    "@pythnetwork/pyth-evm-js": "^1.29.2",
+    "@uniswap/sdk-core": "^3.1.0",
+    "@uniswap/v3-sdk": "^3.9.0",
+    "big.js": "^6.1.1",
+    "binance-api-node": "^0.11.13",
     "chainsig.js": "^1.1.11",
+    "coingecko-api-v3": "0.0.13",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "ethers": "^6.11.1",
-    "hono": "^4.8.4"
+    "hono": "^4.8.4",
+    "messaging-api-telegram": "^1.1.0",
+    "near-api-js": "^0.42.0",
+    "node-abort-controller": "^3.0.1",
+    "web3": "^1.8.2"
   },
   "devDependencies": {
+    "@types/big.js": "^6.2.2",
     "@types/node": "^20.0.0",
     "tsx": "^4.0.0",
     "typescript": "^5.0.0"

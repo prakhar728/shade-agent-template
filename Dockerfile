@@ -10,6 +10,7 @@ WORKDIR /app
 COPY package.json package-lock.json tsconfig.json ./
 RUN npm ci --include=dev
 COPY src/ ./src/
+COPY data ./data/
 RUN npm run build
 
 # Stage 3: Production
@@ -18,4 +19,5 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY package.json ./
+RUN mkdir -p ./data
 CMD ["npm", "start"]

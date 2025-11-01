@@ -1,0 +1,59 @@
+import { EvmPriceServiceConnection } from "@pythnetwork/pyth-evm-js";
+
+export interface Coins {
+  [ticker: string]: {
+    pyth?: string;
+    [key: string]: any;
+  };
+}
+
+interface PriceData {
+  getPrices: (coins: Coins) => Promise<Record<string, number>>;
+}
+
+const connection = new EvmPriceServiceConnection("https://hermes.pyth.network");
+
+const MAX_TIME_DIFFERENCE = 120;
+
+const pyth: PriceData = {
+  getPrices: async function (coins: Coins): Promise<Record<string, number>> {
+    let address_to_process = Object.keys(coins)
+      .filter((address) => !!coins[address].pyth)
+      .map((address) => coins[address].pyth!);
+
+    let prices: Record<string, number> = {};
+    await (async () => {
+      const priceData = await connection.getLatestPriceFeeds(
+        address_to_process
+      );
+
+      priceData?.map((data: any) => {
+        const priceObject = data.price;
+        let decimalPrice =
+          parseFloat(priceObject.price) * Math.pow(10, priceObject.expo);
+
+        const now = Math.floor(Date.now() / 1000); // Convert current time to seconds
+        const timeDifference = now - priceObject.publishTime;
+
+        if (timeDifference <= MAX_TIME_DIFFERENCE) {
+          const coin = Object.keys(coins).filter(
+            (address) => coins[address].pyth === `0x${data.id}`
+          );
+          if (coin.length) {
+            prices[coin[0]] = decimalPrice;
+          }
+        } else {
+          console.error(
+            `Pyth price for ${data.id} is stale. Published more than ${MAX_TIME_DIFFERENCE} seconds ago.`
+          );
+        }
+      });
+    })().catch(function (error) {
+      console.error("Pyth error", error);
+    });
+    //console.log("pyth prices", prices)
+    return prices;
+  },
+};
+
+export default pyth;

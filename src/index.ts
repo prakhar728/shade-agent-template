@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 import ethAccount from "./routes/ethAccount";
 import agentAccount from "./routes/agentAccount";
 import transaction from "./routes/transaction";
+import priceOracle from "./routes/priceOracle";
 
 const app = new Hono();
 
@@ -23,6 +24,7 @@ app.get("/", (c) => c.json({ message: "App is running" }));
 
 // Routes
 app.route("/api/eth-account", ethAccount);
+app.route("/api/price-oracle", priceOracle);
 app.route("/api/agent-account", agentAccount);
 app.route("/api/transaction", transaction);
 
