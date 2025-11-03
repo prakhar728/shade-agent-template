@@ -10,6 +10,7 @@ import { KeyPairSigner } from "@near-js/signers";
 import { NEAR } from "@near-js/tokens";
 import { agentCall } from "@neardefi/shade-agent-js";
 import { getConfig } from "../config";
+import { CoinsConfig } from "../entrypoint";
 
 /**
  * Expect your getConfig to return at least:
@@ -144,7 +145,7 @@ const near: NearModule = {
 
       // Call change method
       const outcome = await agentCall({
-        // contractId: contract,
+        contractId: contract,
         methodName: operation,
         args: parameters ?? {},
         // 0 NEAR deposit by default (override here if needed)
@@ -191,3 +192,24 @@ const near: NearModule = {
 };
 
 export default near;
+
+
+export async function whitelistAssets(TestnetCoins: CoinsConfig) {
+  const coinsToWhitelist = Object.keys(TestnetCoins); // or MainnetCoins if needed
+
+  for (const assetId of coinsToWhitelist) {
+    try {
+      console.log(`Whitelisting asset: ${assetId}`);
+      await agentCall({
+        methodName: "add_asset",
+        args: { asset_id: assetId }
+      });
+    } catch (error) {
+      if (String(error).includes("already exists")) {
+        console.log(`Asset ${assetId} already whitelisted.`);
+      } else {
+        console.error(`Failed to whitelist ${assetId}:`, error);
+      }
+    }
+  }
+}

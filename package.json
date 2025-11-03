@@ -34,6 +34,7 @@
     "hono": "^4.8.4",
     "messaging-api-telegram": "^1.1.0",
     "near-api-js": "^0.42.0",
+    "near-seed-phrase": "^0.2.1",
     "node-abort-controller": "^3.0.1",
     "web3": "^1.8.2"
   },

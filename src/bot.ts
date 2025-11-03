@@ -21,7 +21,7 @@ interface BotModule {
 interface OraclePriceUpdate {
   asset_id: string;
   price: {
-    multiplier: string;
+    multiplier: number;
     decimals: number;
   };
 }
@@ -55,7 +55,7 @@ const bot: BotModule = {
         const price_update: OraclePriceUpdate = {
           asset_id: ticker,
           price: {
-            multiplier: Math.round(new_price.multiplier).toString(),
+            multiplier: Math.round(new_price.multiplier),
             decimals: new_price.decimals,
           },
         };

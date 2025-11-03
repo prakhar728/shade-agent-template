@@ -1,4 +1,4 @@
-import near from "./utils/near";
+import near, { whitelistAssets } from "./utils/near";
 import config from "./config";
 import bot from "./bot";
 import coingecko from "./feeds/coingecko";
@@ -59,7 +59,7 @@ interface ComputeUsnConfig extends ComputeCoinConfig {
   computeCall: (dependencyPrice: Price | null) => Promise<Price | null>;
 }
 
-type CoinsConfig = Record<string, CoinConfig>;
+export type CoinsConfig = Record<string, CoinConfig>;
 type ComputeCoinsConfig = Record<string, ComputeCoinConfig>;
 
 const TestnetCoins: CoinsConfig = {

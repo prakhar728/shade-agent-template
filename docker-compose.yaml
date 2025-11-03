@@ -21,7 +21,7 @@ services:
       NEXT_PUBLIC_contractId: ${NEXT_PUBLIC_contractId}
     platform: linux/amd64 # Explicitly set for TDX
     # shade-agent-app-image
-    image: prakharojha/my-app@sha256:7d082fabe4c71d6bf55dcc61b038de532f14400f7d378e38af72a313c9b724fe
+    image: prakharojha/my-app@sha256:dc6309639b2babf86542775b900eb5b31c97749c687778cb1c6c80b1984c45ec
     container_name: shade-agent-app
     ports:
       - "3000:3000"
